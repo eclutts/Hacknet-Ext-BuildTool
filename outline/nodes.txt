@@ -1,0 +1,81 @@
+The following is each piece of info usable in building a node.
+(from https://pastebin.com/NwtgTdPW)
+Each one has:
+- What it is
+- Datatype / How it will be stored on SQL
+- Any Restrictions
+
+Declaration of Node:
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<Computer [general-information]>[everything-else]</Computer>
+
+PRIMARY KEY: (?)
+    sql_id uuid GENERATED ALWAYS AS IDENTITY generate_uuid_v4()
+
+General Information:
+    
+    id="idHere"
+        id VARCHAR(255) UNIQUE NOT NULL,
+        
+        This is for everyhing else, how the engine identifies the computer.
+    
+    name="nameHere"
+        name VARCHAR(255) DEFAULT "set this"
+
+        How it will appear to the user
+
+    ip="1.1.1.1"
+        ip VARCHAR(40) DEFAULT generate_random_ip()
+
+        String, generate 4 random values from 1 to 100 if not set, join with periods.
+
+    security="num"
+        security SMALLINT DEFAULT 0
+
+        must be between 0 and 5.  No I do not know how the game reads it and it get's promptly overridden later.
+        CHECK( security BETWEEN 0 and 5 )
+
+    allowsDefaultBootModule="false/true"
+        aDBM BOOLEAN DEFAULT false
+
+        Boots up a daemon if the computer has a daemon.
+
+    icon="chip"
+        icon SMALLINT NOTNULL
+        CHECK icon BETWEEN 0 AND 12
+
+        Refer to a reference table such that:
+        0: laptop
+        1: chip
+        2: kellis
+        3: tablet
+        4: ePhone
+        5: ePhone2
+        6: Psylance
+        7: PacificAir
+        8: Alchemist
+        9: DLCLaptop
+        10: DLCPC1
+        11: DLCPC2
+        12: DLCServer
+
+    type="num"
+        type SMALLINT NOT NULL
+        CHECK type BETWEEN 1 and 4
+
+    accounts SUBTABLE
+        See accounts subtable.
+        - sql_id FOREIGN KEY
+        - username VARCHAR(255)
+        - password VARCHAR(255)
+        - type INT BETWEEN 0 and 3
+        
+    ports + portRemap:
+        ports hstore
+
+        How it's going to work:
+        keys are going to be ports, then their values are going to be the ports
+        
+
+    
+

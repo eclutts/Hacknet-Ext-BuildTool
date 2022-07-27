@@ -1,0 +1,1 @@
+# generates default file class.

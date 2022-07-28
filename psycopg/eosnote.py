@@ -1,5 +1,5 @@
 class eosnote():
-    def __init__(self, text):
+    def __init__(self, sql_id, note_id, init_id, text):
         self.text = text
     
     def xml_file_gen(self):
@@ -7,8 +7,10 @@ class eosnote():
         for i in self.text[1:]:
             tbr.append(i)
         tbr[-1] += "</note>"
-        return tbr;
+        return tbr
 
+"""
 if __name__ == '__main__':
     test = eosnote(['this', 'is', 'a', 'test'])
     print('\n'.join(test.xml_file_gen()))
+"""

@@ -1,12 +1,15 @@
 # generates generic eosdevice
-
+import get_icon
 class eosdevice():
-    def __init__(self, id, name, icon, isempty, passoverride):
+    def __init__(self, sql_id, init_id, id, name, icon, isempty, passoverride):
         self.id = id
         self.name = name
-        self.icon = icon
+        self.icon = get_icon.get_icon(icon)
         self.isempty = isempty
-        self.passoverride = passoverride
+        if passoverride is None:
+            self.passoverride = "alpine"
+        else:
+            self.passoverride = passoverride
         self.references = []
 
     def add_reference(self, reference):
@@ -22,10 +25,12 @@ class eosdevice():
         for i in self.references:
             tbr.extend(i.xml_file_gen())
         
-        tbr.append("<\eosPhone>")
+        tbr.append("</eosPhone>")
 
         return tbr
 
+"""
 if __name__ == '__main__':
     test = eosdevice('test', 'test', 'laptop', False, 'alpine')
     print('\n'.join(test.xml_file_gen()))
+"""

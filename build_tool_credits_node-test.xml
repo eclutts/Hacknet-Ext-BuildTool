@@ -1,0 +1,60 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<Computer id="build_tool_credits"
+name="node-test"
+ip="NULL"
+security="0"
+allowsDefaultBootModule="False"
+icon="Alchemist"
+type="4" >
+<ports>21, 22, 25</ports>
+<portRemap>21=43,22=28,25=690</portRemap>
+<portsForCrack>0</portsForCrack>
+<proxy time="-1" />
+<trace time="-1" />
+<firewall level="7" solution="HACKNET" additionalTime="0.0" />
+<admin type="basic" resetPassword="False" isSuper="False" />
+<account username="username" password="password" type="0" />
+<dlink target="contact_info" />
+<positionNear target="contact_info" position="1" total="3" extraDistance="0.0" force="True" />
+<file path="home" name="test3.txt">This is
+a
+
+multilined file</file>
+<file path="bin" name="mem_dump_generator.exe">#MEM_DUMP_GENERATOR#</file>
+<file path="bin" name="mem_forensics.exe">#MEM_FORENSICS_EXE#</file>
+<file path="bin" name="eos.exe">#EOS_SCANNER_EXE#</file>
+<encryptedFile path="home" name="encrypted_file.dec" extension=".txt" ip="NULL" header="decyphered" pass="password">
+decrypted!
+</encryptedFile>
+<memoryDumpFile name="mem_dump_test.md" path="home">
+<Memory>
+	<Data>
+		<Block>dumped!</Block>
+	<\Data>
+	<Commands>
+		<Command>dumped?<\Command>
+	</Commands>
+	<Images>
+		<Image>dumped.<\Image>
+	</Images>
+</Memory>
+</memoryDumpFile>
+<Memory>
+	<Data>
+		<Block>this is another test</Block>
+	<\Data>
+	<Commands>
+		<Command>this<\Command>
+		<Command>is a<\Command>
+		<Command>test<\Command>
+	</Commands>
+	<Images>
+		<Image>welp<\Image>
+	</Images>
+</Memory>
+<eosDevice name="phone-test" id="contact_info" icon="tablet" empty="True" passOverride="alpine">
+<note>this is a test note
+this is the next line</note>
+<mail username="test-username" pass="test-password" />
+</eosPhone>
+</Computer>

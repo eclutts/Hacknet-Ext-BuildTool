@@ -1,24 +1,39 @@
-import psycopg
-from config import config
-
 def get_icon(icon):
+    match icon:
+        case 1:
+            return 'laptop'
+        case 2:
+            return 'chip'
+        case 3:
+            return 'kellis'
+        case 4:
+            return 'tablet'
+        case 5:
+            return 'ePhone'
+        case 6:
+            return 'ePhone2'
+        case 7:
+            return 'Psylance'
+        case 8:
+            return 'PacificAir'
+        case 9:
+            return 'Alchemist'
+        case 10:
+            return 'DLCLaptop'
+        case 11:
+            return 'DLCPC1'
+        case 12:
+            return 'DLCPC2'
+        case 13:
+            return 'DLCServer'
+        case default:
+            return 'laptop'
 
-    conn = None
-    icon_get = "SELECT reference_table FROM icon_reference_table WHERE reference_id = %s"
-    
-    try:
-        params = config()
-        conn = psycopg.connect(**params)
-        cur = conn.cursor()
-        cur.execute(icon_get, (icon))
-        tbr = cur.fetchone()[0]
-        cur.close
-        return tbr
-    except (Exception, psycopg.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-
-if __name__ == '__main__':
-    print(get_icon([1]))
+def get_admin_type(adminType):
+    match adminType:
+            case 1:
+                return 'basic'
+            case 2:
+                return 'progress'
+            case 3:
+                return 'super'

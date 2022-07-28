@@ -1,5 +1,5 @@
 class account():
-    def __init__(self, username, password, type):
+    def __init__(self, sql_id, init_id, username, password, type):
         self.username = username
         self.password = password
         self.type = type

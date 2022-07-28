@@ -1,11 +1,17 @@
 class encrypted_file():
-    def __init__(self, file_name, file_path, file_header, file_header_text, file_text, file_dec_password = '', file_extension = ''):
+    def __init__(self, sql_id, init_id, file_name, file_path, file_extension, file_header_sql_id, file_header_text, file_dec_password, file_text, file_header = '198.168.1.1'):
         self.file_name = file_name
         self.file_path = file_path
-        self.file_extension = file_extension
+        if file_extension is None:
+            self.file_extension = ''
+        else:
+            self.file_extension = file_extension
         self.file_header = file_header
         self.file_header_text = file_header_text
-        self.file_dec_password = file_dec_password
+        if file_dec_password is None:
+            self.file_dec_password = ''
+        else: 
+            self.file_dec_password = file_dec_password
         self.file_text = file_text
 
     def xml_file_gen(self):

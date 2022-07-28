@@ -1,7 +1,7 @@
 # memory dump generated
 
 class mem_dump_gen():
-    def __init__(self, file_data, file_commands, file_images):
+    def __init__(self, sql_id, init_id, file_commands, file_data, file_images):
         self.file_data = file_data
         self.file_commands = file_commands
         self.file_images = file_images

@@ -1,6 +1,6 @@
 # generates default file class.
 class file():
-    def __init__(self, file_name, file_path, file_text):
+    def __init__(self, sql_id, init_id, file_id, file_name, file_path, file_text):
         self.file_name = file_name
         self.file_path = file_path
         self.file_text = file_text

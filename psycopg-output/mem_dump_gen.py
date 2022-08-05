@@ -12,18 +12,18 @@ class mem_dump_gen():
             tbr.append("\t<Data>")
             for i in self.file_data:
                 tbr.append("\t\t<Block>%s</Block>" % i)
-            tbr.append("\t<\Data>")
+            tbr.append("\t</Data>")
         
         if self.file_commands != ['']:
             tbr.append("\t<Commands>")
             for i in self.file_commands:
-                tbr.append("\t\t<Command>%s<\Command>" % i)
+                tbr.append("\t\t<Command>%s</Command>" % i)
             tbr.append("\t</Commands>")
         
         if self.file_images != ['']:
             tbr.append("\t<Images>")
             for i in self.file_images:
-                tbr.append("\t\t<Image>%s<\Image>" % i)
+                tbr.append("\t\t<Image>%s</Image>" % i)
             tbr.append("\t</Images>")
         
         tbr.append("</Memory>")

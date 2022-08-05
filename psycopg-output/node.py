@@ -10,7 +10,7 @@ class node():
         self.name = name
         self.ip = ip
         self.security = security
-        self.allowsDefaultBootModule = allowsDefaultBootModule
+        self.allowsDefaultBootModule = str(allowsDefaultBootModule).lower()
         self.icon = get_icon(icon)
         self.type = type
         tbkeys = ports[0::2]
@@ -34,8 +34,8 @@ class node():
             self.adminType = -1
         else:
             self.adminType = get_admin_type(adminType)
-            self.adminResetPassword = adminResetPassword
-            self.adminIsSuper = adminIsSuper
+            self.adminResetPassword = str(adminResetPassword).lower()
+            self.adminIsSuper = str(adminIsSuper).lower()
         
         self.tracker = tracker
         self.memdumpexists = memdumpexists

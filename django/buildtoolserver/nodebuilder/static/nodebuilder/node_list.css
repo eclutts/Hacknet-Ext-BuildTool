@@ -1,0 +1,38 @@
+#nodegrid {
+    display: grid;
+    width: 100%;
+    height: 40%;
+    grid-template-areas: "nodelist nodeform";
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
+}
+
+#nodegrid > #nodelist {
+    grid-area: nodelist;
+}
+#nodegrid > #nodeform {
+    grid-area: nodeform;
+}
+.btn-group .button {
+    background-color: #4CAF50; /* Green */
+    border: 1px solid green;
+    color: white;
+    /*padding: 15px 32px;*/
+    text-align: left;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 25px 5px 25px 5px;
+    cursor: pointer;
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    overflow: hidden;
+  }
+  
+  .btn-group .button:not(:last-child) {
+    border-bottom: none; /* Prevent double borders */
+  }
+  
+  .btn-group .button:hover {
+    background-color: #3e8e41;
+  }

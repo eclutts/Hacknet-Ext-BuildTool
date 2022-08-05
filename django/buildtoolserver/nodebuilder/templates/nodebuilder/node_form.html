@@ -1,0 +1,27 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'nodebuilder/node_list.css' %}">
+
+<h1>Node Builder</h1>
+
+
+
+{% load static %}
+<script type="text/javascript" src="{% static 'nodebuilder/js/node_list.js' %}"></script>
+
+<div id="nodegrid">
+    <div id="nodelist">
+        <div id="btn-group">
+            {% for node in computers %}
+                <a href="{% url 'nodebuilder:view_obj' node.sql_id.sql_id.sql_id %}/">{{node.sql_id.node_id}}</a><br>
+            {% endfor %}
+            <a href="/nodes/addObj/1/1">+ Add New Node?</a>
+        </div>
+    </div>
+    <div id="nodeform">
+        <form action="/your-name/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>

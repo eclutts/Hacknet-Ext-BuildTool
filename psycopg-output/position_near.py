@@ -5,7 +5,7 @@ class position_near():
         self.position = position
         self.total = total
         self.extraDistance = extraDistance
-        self.force = force
+        self.force = str(force).lower()
     
     def xml_file_gen(self):
         tbr = ["<positionNear target=\"%s\" " % self.target]

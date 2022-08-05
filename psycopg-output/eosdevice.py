@@ -5,7 +5,7 @@ class eosdevice():
         self.id = id
         self.name = name
         self.icon = get_icon.get_icon(icon)
-        self.isempty = isempty
+        self.isempty = str(isempty).lower()
         if passoverride is None:
             self.passoverride = "alpine"
         else:
@@ -25,7 +25,7 @@ class eosdevice():
         for i in self.references:
             tbr.extend(i.xml_file_gen())
         
-        tbr.append("</eosPhone>")
+        tbr.append("</eosDevice>")
 
         return tbr
 

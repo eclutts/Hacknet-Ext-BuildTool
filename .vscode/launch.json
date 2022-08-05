@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch basic-node-constructor",
+            "request": "launch",
+            "type": "chrome",
+            "file": "${workspaceFolder}/basic-node-constructor.html"
+        },
+
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",

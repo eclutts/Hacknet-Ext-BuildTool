@@ -3,7 +3,7 @@
 name="node-test"
 ip="NULL"
 security="0"
-allowsDefaultBootModule="False"
+allowsDefaultBootModule="false"
 icon="Alchemist"
 type="4" >
 <ports>21, 22, 25</ports>
@@ -12,7 +12,7 @@ type="4" >
 <proxy time="-1" />
 <trace time="-1" />
 <firewall level="7" solution="HACKNET" additionalTime="0.0" />
-<admin type="basic" resetPassword="False" isSuper="False" />
+<admin type="basic" resetPassword="false" isSuper="false" />
 <account username="username" password="password" type="0" />
 <dlink target="contact_info" />
 <positionNear target="contact_info" position="1" total="3" extraDistance="0.0" force="True" />
@@ -30,31 +30,31 @@ decrypted!
 <Memory>
 	<Data>
 		<Block>dumped!</Block>
-	<\Data>
+	</Data>
 	<Commands>
-		<Command>dumped?<\Command>
+		<Command>dumped?</Command>
 	</Commands>
 	<Images>
-		<Image>dumped.<\Image>
+		<Image>dumped.</Image>
 	</Images>
 </Memory>
 </memoryDumpFile>
 <Memory>
 	<Data>
 		<Block>this is another test</Block>
-	<\Data>
+	</Data>
 	<Commands>
-		<Command>this<\Command>
-		<Command>is a<\Command>
-		<Command>test<\Command>
+		<Command>this</Command>
+		<Command>is a</Command>
+		<Command>test</Command>
 	</Commands>
 	<Images>
-		<Image>welp<\Image>
+		<Image>welp</Image>
 	</Images>
 </Memory>
-<eosDevice name="phone-test" id="contact_info" icon="tablet" empty="True" passOverride="alpine">
+<eosDevice name="phone-test" id="contact_info" icon="tablet" empty="true" passOverride="alpine">
 <note>this is a test note
 this is the next line</note>
 <mail username="test-username" pass="test-password" />
-</eosPhone>
+</eosDevice>
 </Computer>

@@ -1,0 +1,50 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'nodebuilder/node_list.css' %}">
+
+{% for node in computers %}
+    <meta 
+          id="{{node.sql_id.sql_id.sql_id}}"
+          nodeid="{{node.sql_id.node_id}}"
+          class={{node.sql_id.node_type}} >
+{% endfor %}
+{% comment %}
+          name="{{node.sql_id.name}}"
+          icon="{{node.sql_id.icon}}"
+          
+          ip={{node.ip}}
+          security={{node.security}}
+          comptype={{node.comp_type}}
+          ports={{node.ports}}
+          portsForCrack={{node.portsForCrack}}
+          proxyLevel={{node.proxyLevel}}
+          firewallLevel={{node.firewallLevel}}
+          firewallSolution="{{node.firewallSolution}}"
+          firewallAdditionalTime={{node.firewallAdditionalTime}}
+          traceTime={{node.traceTime}}
+          adminType={{node.adminType}}
+          adminResetPassword={{node.adminResetPassword}}
+          adminIsSuper={{node.adminIsSuper}}
+          tracker={{node.tracker}}>
+
+{% endcomment %}
+<h1>Node Builder</h1>
+
+
+
+{% load static %}
+<script type="text/javascript" src="{% static 'nodebuilder/js/node_list.js' %}"></script>
+
+<div id="nodegrid">
+    <div id="nodelist">
+        <div id="btn-group">
+            {% for node in computers %}
+                <a href="{% url 'nodebuilder:view_obj' node.sql_id.sql_id.sql_id %}/">{{node.sql_id.node_id}}</a><br>
+            {% endfor %}
+            <a href="/nodes/addObj/1/1">+ Add New Node?</a>
+        </div>
+    </div>
+    <div id="nodeform">
+        <form id="formnode"><p>Click a node to begin!<p></form>
+    </div>
+</div>

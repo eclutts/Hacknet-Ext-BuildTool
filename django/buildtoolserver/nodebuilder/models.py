@@ -13,20 +13,21 @@ class GameObject(models.Model):
         (4, 'Daemon'),          # Daemon, ex) memory dump generator
         # Add more later.
     ]
-    object_type = models.PositiveIntegerField(choices=object_type_choices, default=1)
+    object_type = models.PositiveIntegerField(choices=object_type_choices, default=None)
+    class Meta:
+        abstract = True
 
 
 
 # generic node (so phone or computer)
-class Node(models.Model):
-    sql_id = models.OneToOneField(GameObject, on_delete=models.CASCADE, limit_choices_to={'object_type': 1}, primary_key=True)
-    node_id = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
+class Node(GameObject):
+    node_id = models.CharField(max_length=255, default=None)
+    name = models.CharField(max_length=255, default=None)
     icon_choices = [
-        (1, 'laptop'),
-        (2, 'chip'),
-        (3, 'kellis'),
-        (4, 'tablet'),
+        (1, 'Laptop'),
+        (2, 'Chip'),
+        (3, 'Kellis'),
+        (4, 'Tablet'),
         (5, 'ePhone'),
         (6, 'ePhone2'),
         (7, 'Psylance'),
@@ -38,15 +39,17 @@ class Node(models.Model):
         (13, 'DLCServer'),
     ]
     icon = models.PositiveIntegerField(choices=icon_choices, default=1)
-    node_type = models.PositiveIntegerField(choices=[(1, 'Computer'), (2, 'eosDevice')])
+    node_type = models.PositiveIntegerField(choices=[(1, 'Computer'), (2, 'eosDevice')], default=None)
+
+    class Meta:
+        abstract = True
 
     
     
 
 
 
-class Computer(models.Model):
-    sql_id = models.OneToOneField(Node, on_delete=models.CASCADE, limit_choices_to={'node_type': 1}, primary_key=True)
+class Computer(Node):
     ip = models.CharField(max_length=255, default="1.2.3.4")
     security = models.PositiveIntegerField(default=0)
     # to be implemented after we code daemons
@@ -82,6 +85,7 @@ class Computer(models.Model):
     tracker = models.BooleanField(default=False)
     
     # Implement Daemons at a later point
+
 
     
 

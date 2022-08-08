@@ -1,33 +1,15 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'nodebuilder/node_list.css' %}">
-
-{% for node in computers %}
+{% for form in formset %}
     <meta 
-          id="{{node.sql_id.sql_id.sql_id}}"
-          nodeid="{{node.sql_id.node_id}}"
-          class={{node.sql_id.node_type}} >
+        id = {{forloop.counter}}
+        form = '{% csrf_token %} {{form.as_p}}'
+      >
 {% endfor %}
-{% comment %}
-          name="{{node.sql_id.name}}"
-          icon="{{node.sql_id.icon}}"
-          
-          ip={{node.ip}}
-          security={{node.security}}
-          comptype={{node.comp_type}}
-          ports={{node.ports}}
-          portsForCrack={{node.portsForCrack}}
-          proxyLevel={{node.proxyLevel}}
-          firewallLevel={{node.firewallLevel}}
-          firewallSolution="{{node.firewallSolution}}"
-          firewallAdditionalTime={{node.firewallAdditionalTime}}
-          traceTime={{node.traceTime}}
-          adminType={{node.adminType}}
-          adminResetPassword={{node.adminResetPassword}}
-          adminIsSuper={{node.adminIsSuper}}
-          tracker={{node.tracker}}>
 
-{% endcomment %}
+
+
 <h1>Node Builder</h1>
 
 
@@ -35,16 +17,21 @@
 {% load static %}
 <script type="text/javascript" src="{% static 'nodebuilder/js/node_list.js' %}"></script>
 
+
+
 <div id="nodegrid">
     <div id="nodelist">
         <div id="btn-group">
-            {% for node in computers %}
-                <a href="{% url 'nodebuilder:view_obj' node.sql_id.sql_id.sql_id %}/">{{node.sql_id.node_id}}</a><br>
+            {% for form in formset %}
+                {% if form.node_id.value == None %}
+                    <button onclick="getCompForm(0)">Add New Node</button>
+                {% else %}
+                    <button onclick="getCompForm({{ forloop.counter }})">{{form.node_id.value}}</button></br>
+                {% endif %}
             {% endfor %}
-            <a href="/nodes/addObj/1/1">+ Add New Node?</a>
         </div>
     </div>
     <div id="nodeform">
-        <form id="formnode"><p>Click a node to begin!<p></form>
+        <form id="form" action="/nodes/" method="post"><p>Click a node to begin!<p></form>
     </div>
 </div>

@@ -11,17 +11,27 @@
 <div id="nodegrid">
     <div id="nodelist">
         <div id="btn-group">
+            <ul>
             {% for node in computers %}
-                <a href="{% url 'nodebuilder:view_obj' node.sql_id.sql_id.sql_id %}/">{{node.sql_id.node_id}}</a><br>
+                {% if node.sql_id.sql_id.sql_id|stringformat:"s" == obj_sql_id %}
+                    <li>{{node.sql_id.node_id}}</li>
+                {% else %}
+                    <li><a href="{% url 'nodebuilder:view_obj' node.sql_id.sql_id.sql_id %}">{{node.sql_id.node_id}}</a></li>
+                {% endif %}
             {% endfor %}
-            <a href="/nodes/addObj/1/1">+ Add New Node?</a>
+            <li><a href="/nodes/addObj/1/1">+ Add New Node?</a></li>
+            </ul>
         </div>
     </div>
     <div id="nodeform">
-        <form action="/your-name/" method="post">
+        <form action="{% url 'nodebuilder:view_obj' obj_sql_id %}" method="post">
             {% csrf_token %}
-            {{ form }}
+            {{ form.as_ }}
             <input type="submit" value="Submit">
         </form>
     </div>
 </div>
+
+<form method="post">
+    {{ formset }}
+</form>

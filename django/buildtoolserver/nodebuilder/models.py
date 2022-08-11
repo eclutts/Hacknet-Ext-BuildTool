@@ -63,7 +63,7 @@ class Computer(Node):
     ]
     comp_type = models.IntegerField(choices=TYPE_CHOICES, default=4)
 
-    ports = models.JSONField(null=True)
+    ports = models.JSONField(null=True, blank=True)
     portsForCrack = models.PositiveIntegerField(default=0)
     proxyLevel = models.IntegerField(default=-1)
     firewallLevel = models.IntegerField(default=-1)

@@ -26,8 +26,19 @@
     <div id="nodeform">
         <form action="{% url 'nodebuilder:view_obj' obj_sql_id %}" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            {% for field in form %}
+                {% if field not in port_list %}
+                    {{ field.errors }}
+                    {{ field.label_tag }}
+                    {{ field }} <br>
+                {% endif %}
+            {% endfor %}
+            
             <input type="submit" value="Submit">
+        </form>
+        <form action="{% url 'nodebuilder:gen_obj' obj_sql_id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Generate">
         </form>
     </div>
 </div>

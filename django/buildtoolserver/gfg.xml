@@ -1,0 +1,1 @@
+<Computer id="test3" name="test2" ip="1.2.3.44" security="0" icon="laptop" type="4"><ports>22</ports><portRemap>22=4</portRemap><portsForCrack val="5" /><proxy val="1" /><admin type="basic" resetPassword="false" isSuper="true" /><firewall level="4" solution="test" additionalTime="1.0" /><tracker /></Computer>

@@ -45,9 +45,9 @@ class CompForm_rev(ModelForm):
         super(CompForm_rev, self).__init__(*args, **kwargs)
         self.fields['tracker'].required = False
         
-    ssh_port = forms.BooleanField(label="SSH")
-    ssh_remap = forms.IntegerField(label="SSH Remap: ", initial=22)
+    ssh_port = forms.BooleanField(label="SSH", required=False, widget=(forms.CheckboxInput))
+    ssh_remap = forms.IntegerField(label="SSH Remap: ")
     class Meta:
         model = Computer
-        fields = ['node_id', 'name', 'icon', 'ip', 'security', 'portsForCrack', 'proxyLevel', 'firewallLevel', 'adminType', 'adminResetPassword', 'adminIsSuper', 'tracker']
+        fields = ['node_id', 'name', 'icon', 'ip', 'security', 'comp_type', 'portsForCrack', 'proxyLevel', 'firewallLevel', 'firewallSolution', 'firewallAdditionalTime', 'adminType', 'adminResetPassword', 'adminIsSuper', 'traceTime', 'tracker']
 

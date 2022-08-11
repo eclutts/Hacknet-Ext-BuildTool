@@ -1,5 +1,6 @@
 from django import forms
-
+from django.forms import ModelForm
+from nodebuilder.models import Computer
 
 class NameForm(forms.Form):
     your_name = forms.CharField(label='Your name', max_length=100)
@@ -38,4 +39,15 @@ class CompForm(forms.Form):
     ssh_remap = forms.IntegerField(label="SSH Remap")
     ftp_port = forms.BooleanField(label="FTP")
     ftp_remap = forms.IntegerField(label="FTP Remap")
+
+class CompForm_rev(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CompForm_rev, self).__init__(*args, **kwargs)
+        self.fields['tracker'].required = False
+        
+    ssh_port = forms.BooleanField(label="SSH")
+    ssh_remap = forms.IntegerField(label="SSH Remap: ", initial=22)
+    class Meta:
+        model = Computer
+        fields = ['node_id', 'name', 'icon', 'ip', 'security', 'portsForCrack', 'proxyLevel', 'firewallLevel', 'adminType', 'adminResetPassword', 'adminIsSuper', 'tracker']
 

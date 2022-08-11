@@ -22,11 +22,10 @@ window.addEventListener('load', (event) => {
     const listplace = document.getElementById("btn-group");
     for (let i = 0; i < nodelist.length; i++) {
         listplace.innerHTML += "<a href=/nodes/" + nodelist[i].getAttribute("sql_id") + "/>"
-                nodelist[i].getAttribute('nodeid') + "</button>";
     }
-    listplace.innerHTML += "<button class='button' onclick='addNode()'>+ Add New Node</button>";
-}); */
-
+    listplace.innerHTML += "<a href=/nodes/addObj/1/1 />";
+});
+*/
 
 function getCompForm(id) {
     const form = document.getElementById("form");

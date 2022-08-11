@@ -1,14 +1,11 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'nodebuilder/node_list.css' %}">
-{% for form in formset %}
-    <meta 
-        id = {{forloop.counter}}
-        form = '{% csrf_token %} {{form.as_p}}'
-      >
+
+{% for comp in computers %}
+    <meta class="1"
+          sql_id = {{comp.sql_id}}>
 {% endfor %}
-
-
 
 <h1>Node Builder</h1>
 
@@ -22,13 +19,12 @@
 <div id="nodegrid">
     <div id="nodelist">
         <div id="btn-group">
-            {% for form in formset %}
-                {% if form.node_id.value == None %}
-                    <button onclick="getCompForm(0)">Add New Node</button>
-                {% else %}
-                    <button onclick="getCompForm({{ forloop.counter }})">{{form.node_id.value}}</button></br>
-                {% endif %}
-            {% endfor %}
+            <ul>
+                {% for comp in computers %}
+                    <li><a href="{% url 'nodebuilder:view_obj' comp.sql_id %}">{{comp.node_id}}</a></li>
+                {% endfor %}
+                <li><a href="/nodes/addObj/1/1">+ Add New Node?</a></li>
+                </ul>
         </div>
     </div>
     <div id="nodeform">

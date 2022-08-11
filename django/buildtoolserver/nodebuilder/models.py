@@ -21,8 +21,8 @@ class GameObject(models.Model):
 
 # generic node (so phone or computer)
 class Node(GameObject):
-    node_id = models.CharField(max_length=255, default=None)
-    name = models.CharField(max_length=255, default=None)
+    node_id = models.CharField(max_length=255, default=None, blank=True, null=True)
+    name = models.CharField(max_length=255, default=None, blank=True, null=True)
     icon_choices = [
         (1, 'Laptop'),
         (2, 'Chip'),
@@ -67,8 +67,8 @@ class Computer(Node):
     portsForCrack = models.PositiveIntegerField(default=0)
     proxyLevel = models.IntegerField(default=-1)
     firewallLevel = models.IntegerField(default=-1)
-    firewallSolution = models.CharField(max_length=255)
-    firewallAdditionalTime = models.FloatField(default="0.0")
+    firewallSolution = models.CharField(max_length=255, blank=True)
+    firewallAdditionalTime = models.FloatField(default="0.0", blank=True)
 
     traceTime = models.IntegerField(default=-1)
     
@@ -79,10 +79,10 @@ class Computer(Node):
         (3, 'Fast'),
     ]
     adminType = models.PositiveIntegerField(choices=ADMIN_TYPE_CHOICES, default=0)
-    adminResetPassword = models.BooleanField(default=False)
-    adminIsSuper = models.BooleanField(default=False)
+    adminResetPassword = models.BooleanField(default=False, blank=True)
+    adminIsSuper = models.BooleanField(default=False, blank=True)
 
-    tracker = models.BooleanField(default=False)
+    tracker = models.BooleanField(default=False, blank=True)
     
     # Implement Daemons at a later point
 

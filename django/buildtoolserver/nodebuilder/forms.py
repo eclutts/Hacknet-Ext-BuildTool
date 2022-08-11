@@ -44,6 +44,7 @@ class CompForm_rev(ModelForm):
     def __init__(self, *args, **kwargs):
         super(CompForm_rev, self).__init__(*args, **kwargs)
         self.fields['tracker'].required = False
+        
     ssh_port = forms.BooleanField(label="SSH")
     ssh_remap = forms.IntegerField(label="SSH Remap: ", initial=22)
     class Meta:

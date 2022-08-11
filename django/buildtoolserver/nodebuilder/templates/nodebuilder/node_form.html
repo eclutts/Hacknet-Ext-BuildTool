@@ -13,10 +13,10 @@
         <div id="btn-group">
             <ul>
             {% for node in computers %}
-                {% if node.sql_id.sql_id.sql_id|stringformat:"s" == obj_sql_id %}
-                    <li>{{node.sql_id.node_id}}</li>
+                {% if node.sql_id|stringformat:"s" == obj_sql_id %}
+                    <li>{{node.node_id}}</li>
                 {% else %}
-                    <li><a href="{% url 'nodebuilder:view_obj' node.sql_id.sql_id.sql_id %}">{{node.sql_id.node_id}}</a></li>
+                    <li><a href="{% url 'nodebuilder:view_obj' node.sql_id %}">{{node.node_id}}</a></li>
                 {% endif %}
             {% endfor %}
             <li><a href="/nodes/addObj/1/1">+ Add New Node?</a></li>
@@ -26,12 +26,9 @@
     <div id="nodeform">
         <form action="{% url 'nodebuilder:view_obj' obj_sql_id %}" method="post">
             {% csrf_token %}
-            {{ form.as_ }}
+            {{ form.as_p }}
             <input type="submit" value="Submit">
         </form>
     </div>
 </div>
 
-<form method="post">
-    {{ formset }}
-</form>

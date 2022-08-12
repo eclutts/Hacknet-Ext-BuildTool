@@ -17,6 +17,7 @@ class GameObject(models.Model):
     class Meta:
         abstract = True
 
+    obj_children = models.JSONField(default=None, blank=True, null=True)
 
 
 # generic node (so phone or computer)
@@ -63,7 +64,7 @@ class Computer(Node):
     ]
     comp_type = models.IntegerField(choices=TYPE_CHOICES, default=4)
 
-    ports = models.JSONField(null=True)
+    ports = models.JSONField(null=True, blank=True)
     portsForCrack = models.PositiveIntegerField(default=0)
     proxyLevel = models.IntegerField(default=-1)
     firewallLevel = models.IntegerField(default=-1)
@@ -83,7 +84,6 @@ class Computer(Node):
     adminIsSuper = models.BooleanField(default=False, blank=True)
 
     tracker = models.BooleanField(default=False, blank=True)
-    
     # Implement Daemons at a later point
 
 

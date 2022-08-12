@@ -2,8 +2,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'nodebuilder/node_list.css' %}">
 
 <h1>Node Builder</h1>
-
-
+<p>By Eric Conor Lutts</p>
 
 {% load static %}
 <script type="text/javascript" src="{% static 'nodebuilder/js/node_list.js' %}"></script>
@@ -26,8 +25,168 @@
     <div id="nodeform">
         <form action="{% url 'nodebuilder:view_obj' obj_sql_id %}" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            {% for field in form %}
+                {% if field.html_name not in port_list %}
+                    {{ field.errors }}
+                    {{ field.label_tag }}
+                    {{ field }} <br>
+                {% endif %}
+            {% endfor %}
+            <table>
+                <tr>
+                    <td>Port</td>
+                    <td>Include?</td>
+                    <td>Remap</td>
+                <tr>
+                    <div class="fieldWrapper">
+                        <td><label for="{{form.ssh_port.id_for_label}}">SSH Port:</label></td>
+                        <td><input type="checkbox" id="ssh_port" name="ssh_port"
+                            {% if form.ssh_port.value %} checked {% endif %}>
+                        </td>
+                        <td><input type="text" id="ssh_remap" name="ssh_remap"
+                            {% if form.ssh_port.value %} value="{{form.ssh_remap.value}}"
+                            {% else %} value="22"
+                            {% endif %} >
+                        </td>
+                    </div>
+                </tr>
+{% comment %} FTP {% endcomment %}
+                <tr>
+                    <div class="fieldWrapper">
+                        <td><label for="{{form.ftp_port.id_for_label}}">FTP Port:</label></td>
+                        <td><input type="checkbox" id="ftp_port" name="ftp_port"
+                            {% if form.ftp_port.value %} checked {% endif %}>
+                        </td>
+                        <td><input type="text" id="ftp_remap" name="ftp_remap"
+                            {% if form.ftp_port.value %} value="{{form.ftp_remap.value}}"
+                            {% else %} value="21"
+                            {% endif %} >
+                        </td>
+                    </div>
+                </tr>
+{% comment %} SMTP {% endcomment %}
+<tr>
+    <div class="fieldWrapper">
+        <td><label for="{{form.smtp_port.id_for_label}}">SMTP Port:</label></td>
+        <td><input type="checkbox" id="smtp_port" name="smtp_port"
+            {% if form.smtp_port.value %} checked {% endif %}>
+        </td>
+        <td><input type="text" id="smtp_remap" name="smtp_remap"
+            {% if form.smtp_port.value %} value="{{form.smtp_remap.value}}"
+            {% else %} value="25"
+            {% endif %} >
+        </td>
+    </div>
+</tr>
+{% comment %} WEB {% endcomment %}
+<tr>
+    <div class="fieldWrapper">
+        <td><label for="{{form.web_port.id_for_label}}">Web Port:</label></td>
+        <td><input type="checkbox" id="web_port" name="web_port"
+            {% if form.web_port.value %} checked {% endif %}>
+        </td>
+        <td><input type="text" id="web_remap" name="web_remap"
+            {% if form.web_port.value %} value="{{form.web_remap.value}}"
+            {% else %} value="80"
+            {% endif %} >
+        </td>
+    </div>
+</tr>
+{% comment %} SQL {% endcomment %}
+<tr>
+    <div class="fieldWrapper">
+        <td><label for="{{form.sql_port.id_for_label}}">SQL Port:</label></td>
+        <td><input type="checkbox" id="sql_port" name="sql_port"
+            {% if form.sql_port.value %} checked {% endif %}>
+        </td>
+        <td><input type="text" id="sql_remap" name="sql_remap"
+            {% if form.sql_port.value %} value="{{form.sql_remap.value}}"
+            {% else %} value="1433"
+            {% endif %} >
+        </td>
+    </div>
+</tr>
+{% comment %} KBT {% endcomment %}
+<tr>
+    <div class="fieldWrapper">
+        <td><label for="{{form.kbt_port.id_for_label}}">KBT Port:</label></td>
+        <td><input type="checkbox" id="kbt_port" name="kbt_port"
+            {% if form.kbt_port.value %} checked {% endif %}>
+        </td>
+        <td><input type="text" id="kbt_remap" name="kbt_remap"
+            {% if form.kbt_port.value %} value="{{form.kbt_remap.value}}"
+            {% else %} value="104"
+            {% endif %} >
+        </td>
+    </div>
+</tr>
+{% comment %} TOR {% endcomment %}
+<tr>
+    <div class="fieldWrapper">
+        <td><label for="{{form.tor_port.id_for_label}}">TOR Port:</label></td>
+        <td><input type="checkbox" id="tor_port" name="tor_port"
+            {% if form.tor_port.value %} checked {% endif %}>
+        </td>
+        <td><input type="text" id="tor_remap" name="tor_remap"
+            {% if form.tor_port.value %} value="{{form.tor_remap.value}}"
+            {% else %} value="6881"
+            {% endif %} >
+        </td>
+    </div>
+</tr>
+{% comment %} SSL {% endcomment %}
+<tr>
+    <div class="fieldWrapper">
+        <td><label for="{{form.ssl_port.id_for_label}}">SSL Port:</label></td>
+        <td><input type="checkbox" id="ssl_port" name="ssl_port"
+            {% if form.ssl_port.value %} checked {% endif %}>
+        </td>
+        <td><input type="text" id="ssl_remap" name="ssl_remap"
+            {% if form.ssl_port.value %} value="{{form.ssl_remap.value}}"
+            {% else %} value="443"
+            {% endif %} >
+        </td>
+    </div>
+</tr>
+
+{% comment %} PAC {% endcomment %}
+<tr>
+    <div class="fieldWrapper">
+        <td><label for="{{form.pac_port.id_for_label}}">PAC Port:</label></td>
+        <td><input type="checkbox" id="pac_port" name="pac_port"
+            {% if form.pac_port.value %} checked {% endif %}>
+        </td>
+        <td><input type="text" id="pac_remap" name="pac_remap"
+            {% if form.pac_port.value %} value="{{form.pac_remap.value}}"
+            {% else %} value="192"
+            {% endif %} >
+        </td>
+    </div>
+</tr>
+
+{% comment %} RTSP {% endcomment %}
+<tr>
+    <div class="fieldWrapper">
+        <td><label for="{{form.rtsp_port.id_for_label}}">RTSP Port:</label></td>
+        <td><input type="checkbox" id="rtsp_port" name="rtsp_port"
+            {% if form.rtsp_port.value %} checked {% endif %}>
+        </td>
+        <td><input type="text" id="rtsp_remap" name="rtsp_remap"
+            {% if form.rtsp_port.value %} value="{{form.rtsp_remap.value}}"
+            {% else %} value="554"
+            {% endif %} >
+        </td>
+    </div>
+</tr>
+
+            </table>
+                        
+                    
             <input type="submit" value="Submit">
+        </form>
+        <form action="{% url 'nodebuilder:gen_obj' obj_sql_id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Generate">
         </form>
     </div>
 </div>

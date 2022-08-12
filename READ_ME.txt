@@ -40,7 +40,7 @@ TO RUN THE DJANGO SERVER (TO BE IMPROVED):
     - 'USER': 'name-of-user'
     - 'PASSWORD': 'your-password'
     
-4) In terminal, in ./django/buildtoolserver/buildtoolserver:
+4) In terminal, in ./django/buildtoolserver:
   - py manage.py makemigrations
   - py manage.py migrate
   - py manage.py runserver

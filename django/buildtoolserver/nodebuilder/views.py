@@ -18,7 +18,7 @@ import json
 
 
 def obj_list(request, focus=None):
-    comp_list = Computer.objects.all()
+    comp_list = Computer.objects.all().order_by('node_id')
     context = {'computers' : comp_list}
     return render(request, 'nodebuilder/computer_list.html', context)
 
@@ -91,7 +91,7 @@ def view_obj(request, obj_sql_id):
                 vals.update(json_to_ports(obj.ports))
             form = CompForm_rev(vals, auto_id=False)
 
-    comp_list = Computer.objects.all()
+    comp_list = Computer.objects.all().order_by('node_id')
     context = {
         'form' : form,
         'obj_sql_id' : obj_sql_id,
@@ -105,7 +105,7 @@ def view_obj(request, obj_sql_id):
 def json_to_ports(port_list):
     tbd = dict()
     if port_list == None:
-        for i, j in port_mapping.items:
+        for i, j in port_mapping.items():
             tbd[i + '_port'] = False
             tbd[i + '_remap'] = j
         return tbd
@@ -185,16 +185,6 @@ def download_obj(request, obj_sql_id):
     return render(request, 'nodebuilder/download.html', context)
 
 
-def get_obj_and_type(obj_sql_id):
-    obj = GameObject(sql_id = obj_sql_id)
-    type = [obj.object_type]
-    if obj.object_type == 1:
-        obj = Node.objects.get(sql_id = obj_sql_id)
-        type.append(obj.node_type)
-        if obj.node_type == 1:
-            obj = Computer.objects.get(sql_id = obj_sql_id)
-            
-    return [obj, type]
 
 icon_choices = [
     (1, 'laptop'),

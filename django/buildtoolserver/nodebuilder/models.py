@@ -17,6 +17,7 @@ class GameObject(models.Model):
     class Meta:
         abstract = True
 
+    obj_children = models.JSONField(default=None, blank=True, null=True)
 
 
 # generic node (so phone or computer)
@@ -83,7 +84,6 @@ class Computer(Node):
     adminIsSuper = models.BooleanField(default=False, blank=True)
 
     tracker = models.BooleanField(default=False, blank=True)
-    
     # Implement Daemons at a later point
 
 

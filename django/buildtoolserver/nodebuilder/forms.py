@@ -50,6 +50,30 @@ class CompForm_rev(ModelForm):
 
     ftp_port = forms.BooleanField(label="FTP", required=False, widget=(forms.CheckboxInput))
     ftp_remap = forms.IntegerField(label="FTP Remap")
+
+    smtp_port = forms.BooleanField(label="SMTP", required=False)
+    smtp_remap = forms.IntegerField(label="SMTP Remap")
+
+    web_port = forms.BooleanField(label="WEB", required=False)
+    web_remap = forms.IntegerField(label="WebServerWorm Remap")
+
+    sql_port = forms.BooleanField(label="SQL", required=False)
+    sql_remap = forms.IntegerField(label="SQL Remap")
+
+    kbt_port = forms.BooleanField(label="kbt", required=False)
+    kbt_remap = forms.IntegerField(label="kbt Remap")
+
+    tor_port = forms.BooleanField(label="tor", required=False)
+    tor_remap = forms.IntegerField(label="tor Remap")
+
+    ssl_port = forms.BooleanField(required=False)
+    ssl_remap = forms.IntegerField()
+
+    pac_port = forms.BooleanField(required=False)
+    pac_remap = forms.IntegerField()
+
+    rtsp_port = forms.BooleanField(required=False)
+    rtsp_remap = forms.IntegerField()
     class Meta:
         model = Computer
         fields = ['node_id', 'name', 'icon', 'ip', 'security', 'comp_type', 'portsForCrack', 'proxyLevel', 'firewallLevel', 'firewallSolution', 'firewallAdditionalTime', 'adminType', 'adminResetPassword', 'adminIsSuper', 'traceTime', 'tracker']

@@ -26,27 +26,6 @@ def obj_list(request, focus=None):
 
 
 
-
-
-def get_name(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = NameForm()
-
-    return render(request, 'nodebuilder/name.html', {'form': form})
-
-
 def add_obj(request, type, subtype):
     if type == 1:
         if subtype == 1:
@@ -72,13 +51,8 @@ def view_obj(request, obj_sql_id):
                     obj.ip = form.cleaned_data['ip']
                     obj.security = form.cleaned_data['security']
                     obj.portsForCrack = form.cleaned_data['portsForCrack']
-                    tbp = dict()
-                    if form.cleaned_data['ssh_port']:
-                        tbp['ssh'] = form.cleaned_data['ssh_remap']
-                    if form.cleaned_data['ftp_port']:
-                        tbp['ftp'] = form.cleaned_data['ftp_remap']
-
-                    obj.ports = json.dumps(tbp)
+                    print(json.dumps(ports_to_json(form)))
+                    obj.ports = json.dumps(ports_to_json(form))
                     obj.comp_type = form.cleaned_data['comp_type']
                     obj.proxyLevel = form.cleaned_data['proxyLevel']
                     obj.firewallLevel = form.cleaned_data['firewallLevel']
@@ -122,7 +96,7 @@ def view_obj(request, obj_sql_id):
         'form' : form,
         'obj_sql_id' : obj_sql_id,
         'computers' : comp_list,
-        'port_list' : ['ssh_port', 'ssh_remap', 'ftp_port', 'ftp_remap'],
+        'port_list' : list(map(lambda x : str(x) + '_port', port_mapping.keys())) + list(map(lambda x : str(x) + '_remap', port_mapping.keys()))
     }
 
     return render(request, 'nodebuilder/node_form.html', context)
@@ -131,22 +105,24 @@ def view_obj(request, obj_sql_id):
 def json_to_ports(port_list):
     tbd = dict()
     if port_list == None:
-        return {'ssh_port' : False, 'ssh_remap': 22, 'ftp_port': False, 'ftp_remap' : 22}
+        for i, j in port_mapping.items:
+            tbd[i + '_port'] = False
+            tbd[i + '_remap'] = j
+        return tbd
     for x, y in json.loads(port_list).items():
-        match x:
-            case 'ssh':
-                tbd['ssh_port'] = True
-                tbd['ssh_remap'] = y
-                continue
-            case 'ftp':
-                tbd['ftp_port'] = True
-                tbd['ftp_remap'] = y
+        tbd[str(x) + '_port'] = True
+        tbd[str(x) + '_remap'] = y
             
-    for i in {'ssh_port', 'ftp_port'}.difference(tbd.keys()):
-        i = False
-
+    for i in set(map(lambda x : x + '_port', port_mapping.keys())).difference(tbd.keys()):
+        tbd[i] = False
     return tbd
 
+def ports_to_json(form):
+    tbd = dict()
+    for i in port_mapping.keys():
+        if form.cleaned_data[i + '_port']:
+            tbd[i] = form.cleaned_data[i + '_remap']
+    return tbd
 
 
 
@@ -239,6 +215,14 @@ icon_choices = [
 port_mapping = {
     'ssh': 22,
     'ftp': 21,
+    'smtp': 25,
+    'web': 80,
+    'sql': 1433,
+    'kbt': 104,
+    'tor': 6881,
+    'ssl': 443,
+    'pac': 192,
+    'rtsp': 554,
 }
 
 ADMIN_TYPE_CHOICES = [

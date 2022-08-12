@@ -1,1 +1,1 @@
-<Computer id="test2" name="test" ip="1.2.3.4" security="0" icon="laptop" type="4"><ports>22</ports><portRemap>22=21</portRemap><portsForCrack val="0" /></Computer>
+<Computer id="test2" name="test" ip="1.2.3.4" security="0" icon="laptop" type="4"><ports>21,25,6881,443,554</ports><portRemap>21=21,25=36,6881=6881,443=554,554=554</portRemap><portsForCrack val="0" /><admin type="progress" resetPassword="false" isSuper="true" /><firewall level="17" solution="kwijibo" additionalTime="0.0" /></Computer>

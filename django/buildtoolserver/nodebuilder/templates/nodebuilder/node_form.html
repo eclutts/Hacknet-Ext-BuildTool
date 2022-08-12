@@ -2,8 +2,9 @@
 <link rel="stylesheet" type="text/css" href="{% static 'nodebuilder/node_list.css' %}">
 
 <h1>Node Builder</h1>
+<p>By Eric Conor Lutts</p>
 
-
+{{ form.ssh_port.value }}
 
 {% load static %}
 <script type="text/javascript" src="{% static 'nodebuilder/js/node_list.js' %}"></script>
@@ -27,13 +28,46 @@
         <form action="{% url 'nodebuilder:view_obj' obj_sql_id %}" method="post">
             {% csrf_token %}
             {% for field in form %}
-                {% if field not in port_list %}
+                {% if field.html_name not in port_list %}
                     {{ field.errors }}
                     {{ field.label_tag }}
                     {{ field }} <br>
                 {% endif %}
             {% endfor %}
-            
+            <table>
+                <tr>
+                    <td>Port</td>
+                    <td>Include?</td>
+                    <td>Remap</td>
+                <tr>
+                    <div class="fieldWrapper">
+                        <td><label for="{{form.ssh_port.id_for_label}}">SSH Port:</label></td>
+                        <td><input type="checkbox" id="ssh_port" name="ssh_port"
+                            {% if form.ssh_port.value %} checked {% endif %}>
+                        </td>
+                        <td><input type="text" id="ssh_remap" name="ssh_remap"
+                            {% if form.ssh_port.value %} value="{{form.ssh_remap.value}}"
+                            {% else %} value="22"
+                            {% endif %} >
+                        </td>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="fieldWrapper">
+                        <td><label for="{{form.ftp_port.id_for_label}}">FTP Port:</label></td>
+                        <td><input type="checkbox" id="ftp_port" name="ftp_port"
+                            {% if form.ftp_port.value %} checked {% endif %}>
+                        </td>
+                        <td><input type="text" id="ftp_remap" name="ftp_remap"
+                            {% if form.ftp_port.value %} value="{{form.ftp_remap.value}}"
+                            {% else %} value="21"
+                            {% endif %} >
+                        </td>
+                    </div>
+                </tr>
+            </table>
+                        
+                    
             <input type="submit" value="Submit">
         </form>
         <form action="{% url 'nodebuilder:gen_obj' obj_sql_id %}" method="post">

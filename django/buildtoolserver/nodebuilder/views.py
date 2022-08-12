@@ -66,7 +66,6 @@ def view_obj(request, obj_sql_id):
             if type[1] == 1:
                 form = CompForm_rev(request.POST)
                 if form.is_valid():
-                    print("hi!")
                     obj.node_id = form.cleaned_data['node_id']
                     obj.name = form.cleaned_data['name']
                     obj.icon = form.cleaned_data['icon']
@@ -76,12 +75,14 @@ def view_obj(request, obj_sql_id):
                     tbp = dict()
                     if form.cleaned_data['ssh_port']:
                         tbp['ssh'] = form.cleaned_data['ssh_remap']
+                    if form.cleaned_data['ftp_port']:
+                        tbp['ftp'] = form.cleaned_data['ftp_remap']
+
                     obj.ports = json.dumps(tbp)
                     obj.comp_type = form.cleaned_data['comp_type']
                     obj.proxyLevel = form.cleaned_data['proxyLevel']
                     obj.firewallLevel = form.cleaned_data['firewallLevel']
-                    if 'firewallSolution' in form.cleaned_data.keys():
-                        obj.firewallSolution = form.cleaned_data['firewallSolution']
+                    obj.firewallSolution = form.cleaned_data['firewallSolution']
                     obj.firewallAdditionalTime = form.cleaned_data['firewallAdditionalTime']
                     obj.traceTime = form.cleaned_data['traceTime']
                     obj.adminType = form.cleaned_data['adminType']
@@ -121,7 +122,7 @@ def view_obj(request, obj_sql_id):
         'form' : form,
         'obj_sql_id' : obj_sql_id,
         'computers' : comp_list,
-        'port_list' : ['ssh_port', 'ssh_remap'],
+        'port_list' : ['ssh_port', 'ssh_remap', 'ftp_port', 'ftp_remap'],
     }
 
     return render(request, 'nodebuilder/node_form.html', context)
@@ -130,26 +131,24 @@ def view_obj(request, obj_sql_id):
 def json_to_ports(port_list):
     tbd = dict()
     if port_list == None:
-        return {'ssh' : False, 'ssh_remap': 22}
+        return {'ssh_port' : False, 'ssh_remap': 22, 'ftp_port': False, 'ftp_remap' : 22}
     for x, y in json.loads(port_list).items():
         match x:
             case 'ssh':
                 tbd['ssh_port'] = True
                 tbd['ssh_remap'] = y
                 continue
+            case 'ftp':
+                tbd['ftp_port'] = True
+                tbd['ftp_remap'] = y
+            
+    for i in {'ssh_port', 'ftp_port'}.difference(tbd.keys()):
+        i = False
+
     return tbd
 
 
-def get_obj_and_type(obj_sql_id):
-    obj = GameObject(sql_id = obj_sql_id)
-    type = [obj.object_type]
-    if obj.object_type == 1:
-        obj = Node.objects.get(sql_id = obj_sql_id)
-        type.append(obj.node_type)
-        if obj.node_type == 1:
-            obj = Computer.objects.get(sql_id = obj_sql_id)
-            
-    return [obj, type]
+
 
 def gen_obj(request, obj_sql_id):
     obj = Computer.objects.get(sql_id = obj_sql_id)
@@ -201,12 +200,25 @@ def gen_obj(request, obj_sql_id):
     with open(save_path_file, "wb") as f:
         tree.write(f)
 
-    return HttpResponseRedirect(reverse('nodebuilder:obj_list'))
+    return HttpResponseRedirect(reverse('nodebuilder:download_obj', args=(obj_sql_id,)))
 
-def download_obj(request, obj_sql_id)
+def download_obj(request, obj_sql_id):
+    context = {
+        'filepath': "nodebuilder/xml_files/" + str(obj_sql_id) + ".xml"
+    }
+    return render(request, 'nodebuilder/download.html', context)
 
 
-
+def get_obj_and_type(obj_sql_id):
+    obj = GameObject(sql_id = obj_sql_id)
+    type = [obj.object_type]
+    if obj.object_type == 1:
+        obj = Node.objects.get(sql_id = obj_sql_id)
+        type.append(obj.node_type)
+        if obj.node_type == 1:
+            obj = Computer.objects.get(sql_id = obj_sql_id)
+            
+    return [obj, type]
 
 icon_choices = [
     (1, 'laptop'),
@@ -225,7 +237,8 @@ icon_choices = [
 ]
 
 port_mapping = {
-    'ssh': 22
+    'ssh': 22,
+    'ftp': 21,
 }
 
 ADMIN_TYPE_CHOICES = [

@@ -48,3 +48,5 @@ TO RUN THE DJANGO SERVER (TO BE IMPROVED):
 5) This should allow you to connect to the web server at 127.0.0.1:8000
   - specifically, go to 127.0.0.1:8000/nodes
 
+
+Special thanks to Fayti1703 and the Hacknet Extensions discord community for all their help in understanding these files
